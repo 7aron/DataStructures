@@ -52,7 +52,7 @@ Java example:
 }  
 
 ```
-Here, the complexity of a function is `O(n^2^ + n)`
+Here, the complexity of a function is `O(n`^2^` + n)`
 
 Another function that can do the same work but with complexity of `O(n)` is:
 
@@ -60,7 +60,7 @@ Another function that can do the same work but with complexity of `O(n)` is:
 public static int example1(int[] first, int[] second) {
   int count = 0, total = 0;
   for (int j = 0; j < first.length; j++)
-    total += first[i];
+    total += first[j];
   for (int k = 0; k < second.length; k++)
     if (total == second[k]) count ++;
   return count;
@@ -86,12 +86,56 @@ In order to compare the relative running times of these two methods we should us
     long totalTime = System.currentTimemillis();
     System.out.println("Total time is " + totalTime)
 ```
-*Run these functions with arrays of 1000000 integers we get output*
+*Run these functions with arrays of 350000 integers we get output*
 
-`Total time is 2657` //Example
-`Total time is 5` //Example1
+`Total time is 37163`  //Example
+`Total time is 13`  //Example1
 
+`Here is the whole code`
+```java
+public class ex4 {
+  public static int example(int[] first, int[] second) {
+    int n = first.length, count = 0, total = 0;
 
+    for (int j = 0; j < n; j++)
+      for (int k = 0; k <= j; k++)
+        total += first[k];
+
+    for (int i = 0; i < n; i++)
+      if (second[i] == total) count++;
+
+    return count;
+  }
+
+  public static int example1(int[] first, int[] second) {
+    int count = 0, total = 0;
+    for (int j = 0; j < first.length; j++)
+      total += first[j];
+    for (int k = 0; k < second.length; k++)
+      if (total == second[k]) count ++;
+    return count;
+  }
+  
+  public static void main(String[] args) {
+    int[] first = new int[350000];
+    int[] second = new int[350000];
+
+    for (int i = 0; i < 350000; i++) {
+      first[i] = i;
+      second[i] = i + 1;
+    }
+
+    long curTime = System.currentTimeMillis();
+    example(first, second);
+    long endTime = System.currentTimeMillis();
+    System.out.println("Total time is " + totalTime)
+
+    curTime = System.currentTimeMillis();
+    example1(first, second);
+    endTime = System.currentTimeMillis();
+
+    System.out.println("Total time is " + totalTime)
+```
 
 ###Exercise 5
 
